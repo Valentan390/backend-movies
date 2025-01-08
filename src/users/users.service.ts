@@ -71,27 +71,27 @@ export class UsersService {
     return newUser;
   }
 
-  async verify(token: string) {
-    const { data, error } = verifyToken(token);
+  // async verify(token: string) {
+  //   const { data, error } = verifyToken(token);
 
-    if (error) {
-      throw new UnauthorizedException(error.message);
-    }
+  //   if (error) {
+  //     throw new UnauthorizedException(error.message);
+  //   }
 
-    const { email } = data;
+  //   const { email } = data;
 
-    const user = await this.userModel.findOne({ email });
+  //   const user = await this.userModel.findOne({ email });
 
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+  //   if (!user) {
+  //     throw new NotFoundException('User not found');
+  //   }
 
-    if (user.verify) {
-      throw new NotFoundException('User already verified');
-    }
+  //   if (user.verify) {
+  //     throw new NotFoundException('User already verified');
+  //   }
 
-    await this.userModel.findOneAndUpdate({ _id: user._id }, { verify: true });
-  }
+  //   await this.userModel.findOneAndUpdate({ _id: user._id }, { verify: true });
+  // }
 
   async login(payload: IPayload): Promise<SessionDocument> {
     const { email, password } = payload;

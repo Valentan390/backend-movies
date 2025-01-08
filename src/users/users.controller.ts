@@ -28,12 +28,12 @@ export class UsersController {
     };
   }
 
-  @Post('verify')
-  async verifyEmailUser(@Query() token: string) {
-    await this.usersServies.verify(token);
+  // @Post('verify')
+  // async verifyEmailUser(@Query() token: string) {
+  //   await this.usersServies.verify(token);
 
-    return { status: HttpStatus.OK, message: 'User successfully verified' };
-  }
+  //   return { status: HttpStatus.OK, message: 'User successfully verified' };
+  // }
 
   @Post('login')
   async loginUser(
