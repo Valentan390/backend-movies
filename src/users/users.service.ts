@@ -14,7 +14,7 @@ import { IPayload, IRefreshSession } from 'src/types/interfase';
 import * as path from 'node:path';
 import { TEMPLATES_DIR } from 'src/constans';
 import { readFile } from 'fs/promises';
-import Handlebars from 'handlebars';
+import * as Handlebars from 'handlebars';
 import { env } from 'src/utils/env';
 import { createToken, verifyToken } from 'src/utils/jwtToken';
 import { sendEmail } from 'src/utils/sendEmail';

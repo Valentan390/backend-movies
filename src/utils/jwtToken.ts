@@ -1,4 +1,6 @@
-import jwt from 'jsonwebtoken';
+// import * as jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
+
 import { env } from './env';
 
 const jwtSecret = env('JWT_SECRET');
@@ -8,11 +10,11 @@ export interface CreateTokenParams {
 }
 
 export const createToken = (payload: CreateTokenParams) =>
-  jwt.sign(payload, jwtSecret, { expiresIn: '24h' });
+  sign(payload, jwtSecret, { expiresIn: '24h' });
 
 export const verifyToken = (token: string) => {
   try {
-    const payload = jwt.verify(token, jwtSecret);
+    const payload = verify(token, jwtSecret);
     return {
       data: payload,
       error: null,

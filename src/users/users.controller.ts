@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
   Post,
   Query,
@@ -24,12 +25,12 @@ export class UsersController {
 
     return {
       status: HttpStatus.CREATED,
-      message: 'Successffuly register user!',
+      message: `Successffuly register user!`,
     };
   }
 
-  @Post('verify')
-  async verifyEmailUser(@Query() token: string) {
+  @Get('verify')
+  async verifyEmailUser(@Query('token') token: string) {
     await this.usersServies.verify(token);
 
     return { status: HttpStatus.OK, message: 'User successfully verified' };
