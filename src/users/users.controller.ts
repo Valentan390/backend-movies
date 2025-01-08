@@ -3,6 +3,7 @@ import {
   Controller,
   HttpStatus,
   Post,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -25,6 +26,13 @@ export class UsersController {
       status: HttpStatus.CREATED,
       message: 'Successffuly register user!',
     };
+  }
+
+  @Post('verify')
+  async verifyEmailUser(@Query() token: string) {
+    await this.usersServies.verify(token);
+
+    return { status: HttpStatus.OK, message: 'User successfully verified' };
   }
 
   @Post('login')
