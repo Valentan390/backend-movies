@@ -1,21 +1,21 @@
-// import * as nodemailer from 'nodemailer';
-// // import 'dotenv/config';
+import * as nodemailer from 'nodemailer';
+// import 'dotenv/config';
 
-// const { UKR_NET_PASSWORD, UKR_NET_FROM } = process.env;
+const { UKR_NET_PASSWORD, UKR_NET_FROM } = process.env;
 
-// const nodemailerConfig = {
-//   host: 'smtp.ukr.net',
-//   port: 465,
-//   secure: true,
-//   auth: {
-//     user: UKR_NET_FROM,
-//     pass: UKR_NET_PASSWORD,
-//   },
-// };
+const nodemailerConfig = {
+  host: 'smtp.ukr.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: UKR_NET_FROM,
+    pass: UKR_NET_PASSWORD,
+  },
+};
 
-// const transport = nodemailer.createTransport(nodemailerConfig);
+const transport = nodemailer.createTransport(nodemailerConfig);
 
-// export const sendEmail = (data: nodemailer.SendMailOptions) => {
-//   const email = { ...data, from: UKR_NET_FROM };
-//   return transport.sendMail(email);
-// };
+export const sendEmail = (data: nodemailer.SendMailOptions) => {
+  const email = { ...data, from: UKR_NET_FROM };
+  return transport.sendMail(email);
+};

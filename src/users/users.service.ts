@@ -1,7 +1,7 @@
 import {
   ConflictException,
   Injectable,
-  // NotFoundException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,13 +11,13 @@ import { User, UserDocument } from 'src/db/schemas/User.schema';
 import * as bcrypt from 'bcrypt';
 import { createSession } from 'src/utils/createSession';
 import { IPayload, IRefreshSession } from 'src/types/interfase';
-// import * as path from 'node:path';
-// import { TEMPLATES_DIR } from 'src/constans';
-// import { readFile } from 'fs/promises';
-// import Handlebars from 'handlebars';
-// import { env } from 'src/utils/env';
-// import { createToken, verifyToken } from 'src/utils/jwtToken';
-// import { sendEmail } from 'src/utils/sendEmail';
+import * as path from 'node:path';
+import { TEMPLATES_DIR } from 'src/constans';
+import { readFile } from 'fs/promises';
+import Handlebars from 'handlebars';
+import { env } from 'src/utils/env';
+import { createToken, verifyToken } from 'src/utils/jwtToken';
+import { sendEmail } from 'src/utils/sendEmail';
 
 @Injectable()
 export class UsersService {
@@ -42,56 +42,56 @@ export class UsersService {
       password: hashPassword,
     });
 
-    // const verifyEmailTemplatePath = path.join(
-    //   TEMPLATES_DIR,
-    //   'verify-email.html',
-    // );
+    const verifyEmailTemplatePath = path.join(
+      TEMPLATES_DIR,
+      'verify-email.html',
+    );
 
-    // const templateSource = await readFile(verifyEmailTemplatePath, 'utf-8');
+    const templateSource = await readFile(verifyEmailTemplatePath, 'utf-8');
 
-    // const template = Handlebars.compile(templateSource);
+    const template = Handlebars.compile(templateSource);
 
-    // const appDomain = env('APP_DOMAIN');
+    const appDomain = env('APP_DOMAIN');
 
-    // const token = createToken({ email });
+    const token = createToken({ email });
 
-    // const html = template({
-    //   username: newUser.username,
-    //   link: `${appDomain}/auth/verify?token=${token}`,
-    // });
+    const html = template({
+      username: newUser.username,
+      link: `${appDomain}/auth/verify?token=${token}`,
+    });
 
-    // const verifyEmail = {
-    //   to: email,
-    //   subject: 'Підтверження email',
-    //   html,
-    // };
+    const verifyEmail = {
+      to: email,
+      subject: 'Підтверження email',
+      html,
+    };
 
-    // await sendEmail(verifyEmail);
+    await sendEmail(verifyEmail);
 
     return newUser;
   }
 
-  // async verify(token: string) {
-  //   const { data, error } = verifyToken(token);
+  async verify(token: string) {
+    const { data, error } = verifyToken(token);
 
-  //   if (error) {
-  //     throw new UnauthorizedException(error.message);
-  //   }
+    if (error) {
+      throw new UnauthorizedException(error.message);
+    }
 
-  //   const { email } = data;
+    const { email } = data;
 
-  //   const user = await this.userModel.findOne({ email });
+    const user = await this.userModel.findOne({ email });
 
-  //   if (!user) {
-  //     throw new NotFoundException('User not found');
-  //   }
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
-  //   if (user.verify) {
-  //     throw new NotFoundException('User already verified');
-  //   }
+    if (user.verify) {
+      throw new NotFoundException('User already verified');
+    }
 
-  //   await this.userModel.findOneAndUpdate({ _id: user._id }, { verify: true });
-  // }
+    await this.userModel.findOneAndUpdate({ _id: user._id }, { verify: true });
+  }
 
   async login(payload: IPayload): Promise<SessionDocument> {
     const { email, password } = payload;
