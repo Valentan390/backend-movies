@@ -29,7 +29,7 @@ import { env } from 'src/utils/env';
 import { saveFileToCloudinary } from 'src/utils/saveFileToCloudinary';
 import { saveFileToUploadsDir } from 'src/utils/saveFileToUploadsDir';
 import * as path from 'node:path';
-import { ValidateObjectIdPipe } from 'src/common/pipes/ValidateObjectId.pipes';
+import { ValidateObjectIdPipe } from '../common/pipes/validateObjectId.pipes';
 
 const enable_cloudinary = env('ENABLE_CLOUDINARY') === 'true';
 
