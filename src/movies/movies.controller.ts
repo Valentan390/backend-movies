@@ -17,8 +17,8 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpserMovieDto } from './dto/upser- movie.dto';
-import { ParsePaginationInterceptor } from './interceptorMovies/ParsePagination.interceptor';
-import { ParseSortParamsInterceptor } from './interceptorMovies/parseSortParams.interceptor';
+import { ParsePaginationInterceptor } from '../common/interceptors/ParsePagination.interceptor';
+import { ParseSortParamsInterceptor } from '../common/interceptors/parseSortParams.interceptor';
 import { sortByListMovie } from 'src/constants/movies';
 import { QueryMoviesDto } from './dto/query.movies.dto';
 import { parseMoviesFilter } from 'src/utils/parseMoviesFilter';

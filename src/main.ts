@@ -4,8 +4,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
-import { HttpExceptionFilter } from './exception.filter/http-exception.filter';
 import { startRequestInterval } from './utils/startRequestInterval';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);

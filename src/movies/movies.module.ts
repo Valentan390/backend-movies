@@ -4,7 +4,7 @@ import { Movie, MovieSchema } from '../db/schemas/Movie.schema';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
 import { handleSaveError, setUpdateSettings } from 'src/db/hooks';
-import { AuthMiddleware } from 'src/middleware/authenticate.middleware';
+import { AuthMiddleware } from 'src/common/middleware/authenticate.middleware';
 import { UsersModule } from 'src/users/users.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { multerConfig } from './multer.config';
