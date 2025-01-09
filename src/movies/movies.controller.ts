@@ -11,6 +11,7 @@ import {
   Put,
   Query,
   Req,
+  UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
@@ -19,10 +20,18 @@ import { GetIdDto } from './dto/get-IdDto';
 import { UpserMovieDto } from './dto/upser- movie.dto';
 import { ParsePaginationInterceptor } from './interceptorMovies/ParsePagination.interceptor';
 import { ParseSortParamsInterceptor } from './interceptorMovies/parseSortParams.interceptor';
-import { sortByListMovie } from 'src/constans/movies';
+import { sortByListMovie } from 'src/constants/movies';
 import { QueryMoviesDto } from './dto/query.movies.dto';
 import { parseMoviesFilter } from 'src/utils/parseMoviesFilter';
 import { IAuthenticatedRequest, IFilter } from 'src/types/interfase';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
+import { env } from 'src/utils/env';
+import { saveFileToCloudinary } from 'src/utils/saveFileToCloudinary';
+import { saveFileToUploadsDir } from 'src/utils/saveFileToUploadsDir';
+import * as path from 'node:path';
+
+const enable_cloudinary = env('ENABLE_CLOUDINARY') === 'true';
 
 @Controller('movies')
 export class MoviesController {
@@ -55,15 +64,31 @@ export class MoviesController {
   }
 
   @Post()
+  @UseInterceptors(FileInterceptor('poster'))
   async addMovie(
     @Req() req: IAuthenticatedRequest,
     @Body() createMovieDto: CreateMovieDto,
+    @UploadedFile() file: Express.Multer.File,
   ) {
     const { _id: userId } = req.user;
+
+    let poster = '';
+
+    if (file) {
+      if (enable_cloudinary) {
+        poster = await saveFileToCloudinary(file);
+      } else {
+        await saveFileToUploadsDir(file, 'posters');
+        poster = path.join('posters', file.filename);
+      }
+    }
+
     const data = await this.moviesService.addMovie({
       ...createMovieDto,
+      poster,
       userId,
     });
+
     return {
       status: HttpStatus.CREATED,
       message: 'Movie created successfully',

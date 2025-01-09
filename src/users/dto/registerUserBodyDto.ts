@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
-import { emailRegexp } from '../../constans/users';
+import { emailRegexp } from '../../constants/users';
 
 export class RegisterUserBodyDto {
   @IsNotEmpty({ message: 'Username is required' })

@@ -7,7 +7,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { releaseYearRegexp, typeList } from 'src/constans/movies';
+import { releaseYearRegexp, typeList } from 'src/constants/movies';
 
 export class CreateMovieDto {
   @IsNotEmpty({ message: 'Title is required.' })

@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import { accessTokenLifetime, refreshTokenLifetime } from 'src/constans/users';
+import { accessTokenLifetime, refreshTokenLifetime } from 'src/constants/users';
 
 export const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');

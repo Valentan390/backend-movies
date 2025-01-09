@@ -6,7 +6,7 @@ import {
   MinLength,
   Matches,
 } from 'class-validator';
-import { releaseYearRegexp, typeList } from 'src/constans/movies';
+import { releaseYearRegexp, typeList } from 'src/constants/movies';
 
 export class UpserMovieDto {
   @IsOptional()

@@ -21,6 +21,7 @@ export interface IAddMoviePayload {
   director: string;
   type: string;
   releaseYear?: number;
+  poster?: string;
   userId?: mongoose.Types.ObjectId;
 }
 

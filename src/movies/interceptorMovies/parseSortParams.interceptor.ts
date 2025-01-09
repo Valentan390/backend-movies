@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { sortOrderList } from 'src/constans/movies';
+import { sortOrderList } from 'src/constants/movies';
 
 @Injectable()
 export class ParseSortParamsInterceptor implements NestInterceptor {

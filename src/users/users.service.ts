@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { createSession } from 'src/utils/createSession';
 import { IPayload, IRefreshSession } from 'src/types/interfase';
 import * as path from 'node:path';
-import { TEMPLATES_DIR } from 'src/constans';
+import { TEMPLATES_DIR } from 'src/constants';
 import { readFile } from 'fs/promises';
 import * as Handlebars from 'handlebars';
 import { env } from 'src/utils/env';

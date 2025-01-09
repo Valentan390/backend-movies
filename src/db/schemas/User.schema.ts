@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { emailRegexp } from 'src/constans/users';
+import { emailRegexp } from 'src/constants/users';
 
 export type UserDocument = HydratedDocument<User>;
 

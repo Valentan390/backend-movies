@@ -10,7 +10,7 @@ import {
   releaseYearRegexp,
   sortByListMovie,
   sortOrderList,
-} from 'src/constans/movies';
+} from 'src/constants/movies';
 
 export class QueryMoviesDto {
   @IsOptional()

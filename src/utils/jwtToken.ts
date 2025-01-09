@@ -1,6 +1,5 @@
 // import * as jwt from 'jsonwebtoken';
 import { sign, verify } from 'jsonwebtoken';
-
 import { env } from './env';
 
 const jwtSecret = env('JWT_SECRET');

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { releaseYearRegexp, typeList } from 'src/constans/movies';
+import { releaseYearRegexp, typeList } from 'src/constants/movies';
 
 export type MovieDocument = HydratedDocument<Movie>;
 
@@ -22,6 +22,9 @@ export class Movie {
 
   @Prop({ type: Number, match: releaseYearRegexp })
   releaseYear: number;
+
+  @Prop({ type: String })
+  poster: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
