@@ -30,9 +30,22 @@ import { saveFileToCloudinary } from 'src/utils/saveFileToCloudinary';
 import { saveFileToUploadsDir } from 'src/utils/saveFileToUploadsDir';
 import * as path from 'node:path';
 import { ValidateObjectIdPipe } from '../common/pipes/validateObjectId.pipes';
+import {
+  ApiBearerAuth,
+  ApiExtraModels,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
+import { Movie } from 'src/db/schemas/Movie.schema';
 
 const enable_cloudinary = env('ENABLE_CLOUDINARY') === 'true';
 
+@ApiExtraModels(Movie)
+@ApiBearerAuth()
+@ApiTags('movies')
 @Controller('movies')
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
@@ -97,6 +110,31 @@ export class MoviesController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'search movie by id' })
+  @ApiParam({ name: 'id', description: 'Movie ID', required: true })
+  @ApiResponse({
+    status: 200,
+    description: 'Movie fetched successfully',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            status: { type: 'number', example: 200 },
+            message: {
+              type: 'string',
+              example: 'Movie with id=12345 fetched successfully',
+            },
+            data: {
+              $ref: getSchemaPath(Movie), // Ссылка на класс Movie
+            },
+          },
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Movie with id=/{id} not found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getMovieById(
     @Req() req: IAuthenticatedRequest,
     @Param('id', new ValidateObjectIdPipe()) id: string,

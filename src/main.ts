@@ -6,6 +6,7 @@ import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import { startRequestInterval } from './utils/startRequestInterval';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { setupSwagger } from './utils/setupSwagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -21,6 +22,9 @@ async function bootstrap() {
   );
   app.use(morgan('combined'));
   app.use(cookieParser());
+
+  setupSwagger(app);
+
   const port = process.env.PORT || 3333;
 
   await app.listen(port, () => console.log(`Server running on ${port} port`));
